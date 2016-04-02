@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ECharts</title>
+    <!-- 来自百度CDN -->
+    <script src="./esl.js"></script>
+</head>
+<body>
+	<!--<iframe id = "hellocgi" src="cgi-bin/hello.cgi" width="600" height="200"></iframe>-->
+	<!--#exec cgi="cgiProgram.cgi"-->
+
+    <div id="main2" style="height:600px" align="left"></div>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths:{ 
+                'echarts' : './echarts',
+                'echarts/chart/bar' : './echarts',
+                'echarts/chart/line' : './echarts',
+                'echarts/chart/gauge' : './echarts'
+            }});
+         
+        // 使用
+        require([
+                'echarts',
+                'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+                'echarts/chart/line',
+                'echarts/chart/gauge'],
+            function (ec) {
+			
+				//var d = window.frames["hellocgi"].document;
+				
+				//var str = d.getElementsByTagName('h1')[0].innerHTML;
+				//alert(str);
+				//alert(d.getElementsByTagName('h1')[0].firstChild.data);
+			
+                var myChart2 = ec.init(document.getElementById('main2')); 
+                var option2 = {
+                    tooltip : {formatter: "{a} <br/>{b} : {c}%"},
+                    series : [{
+                            name:'燃烧值(kcal)',
+                            type:'gauge',
+                            detail : {formatter:'{value}摄氏度'},
+                            data:[{value: 50, name: ''}]
+                        }]};
+				 myChart2.setOption(option2);
+                }
+				 );
+
+    </script>
+
+</body>
+</html>

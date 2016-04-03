@@ -3,70 +3,66 @@
 <head>
     <title>ECharts</title>
     <!-- 来自百度CDN -->
-    <script type="text/javascript" src="./esl.js"></script>
+    <script src="./esl.js"></script>
 </head>
 <body>
-	<!--<iframe id = "hellocgi" src="cgi-bin/hello.cgi" width="600" height="200"></iframe>-->
+	<iframe id = "hellocgi" src="cgi-bin/hello.cgi" width="0" height="0"></iframe>
 	<!--#exec cgi="cgiProgram.cgi"-->
-	<!--<script type="text/javascript">window.setInterval(echartsGauge(ec),1000);  </script>-->
 
     <div id="main2" style="height:600px" align="left"></div>
     <script type="text/javascript">
-    	// setInterval(require,1000);//1000为1秒钟
-		//while(1)
-		{
-			//alert("111");
-			// 路径配置
-			require.config({
-				paths:{ 
-					'echarts' : './echarts',
-					'echarts/chart/bar' : './echarts',
-					'echarts/chart/line' : './echarts',
-					'echarts/chart/gauge' : './echarts'
-				}});
+		var timeTicket;
+        // 路径配置
+        require.config({
+            paths:{ 
+                'echarts' : './echarts',
+                'echarts/chart/bar' : './echarts',
+                'echarts/chart/line' : './echarts',
+                'echarts/chart/gauge' : './echarts'
+            }});
+         
+        // 使用
+        require([
+                'echarts',
+                'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+                'echarts/chart/line',
+                'echarts/chart/gauge'],
+            function (ec) {
 			
-			// 使用
-			require([
-					'echarts',
-					'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
-					'echarts/chart/line',
-					'echarts/chart/gauge'],				
-				function echartsGauge(ec) {
+				//var d = window.frames["hellocgi"].document;
 				
-					//var d = window.frames["hellocgi"].document;
-					
-					//var str = d.getElementsByTagName('h1')[0].innerHTML;
-					//alert("111");
-					//alert(d.getElementsByTagName('h1')[0].firstChild.data);
-				
-					
-				
-				
-					var myChart2 = ec.init(document.getElementById('main2')); 
-					//alert("111");
-					var xxxxx = (Math.random()*100).toFixed(2) - 0;
-					var option2 = {
-						tooltip : {formatter: "{a} <br/>{b} : {c}%"},
-						series : [{
-								name:'燃烧值(kcal)',
-								type:'gauge',
-								detail : {formatter:'{value}摄氏度'},
-								data:[{value: xxxxx, name: ''}]
-							}]};
-						myChart2.setOption(option2);
+				//var str = d.getElementsByTagName('h1')[0].innerHTML;
+				//alert(str);
+				//alert(d.getElementsByTagName('h1')[0].firstChild.data);
+			
+                var myChart2 = ec.init(document.getElementById('main2')); 
+                var option2 = {
+                    tooltip : {formatter: "{a} <br/>{b} : {c}%"},
+                    series : [{
+                            name:'燃烧值(kcal)',
+                            type:'gauge',
+                            detail : {formatter:'{value}摄氏度'},
+                            data:[{value: 0, name: ''}]
+                        }]};
 						
-					}
-					
-	
-					 );
-					//setTimeout("echartsGauge(ec)",100);  
-					windows.setInterval(echartsGauge,1000);//1000为1秒钟
-					//var Int;
-					//Int = setInterval("echartsGauge()", 1000);
-					//Thread.sleep(3000);
-					//Thread.sleep(1000);
-				}
-                windows.setInterval(echartsGauge,1000);//1000为1秒钟
+				clearInterval(timeTicket); 
+				timeTicket = setInterval(function(){ 
+				var d = window.frames["hellocgi"].document;				
+				var str = d.getElementsByTagName('h1')[0].innerHTML;
+				option2.series[0].data[0].value = str; 
+				//option2.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0; 
+				myChart2.setOption(option2, true); 
+				}, 2000); 
+				
+				
+				// 为echarts对象加载数据  
+				//myChart.setOption(option); 
+						
+				 myChart2.setOption(option2);
+				 
+				 
+                }
+				 );
     </script>
 
 </body>

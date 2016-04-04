@@ -6,7 +6,12 @@
     <script src="./esl.js"></script>
 </head>
 <body>
+	<img src="city2.jpg" height="100%" width="100%">
+	<h1 align="left" style="color:black;font-size:40px;">物联网温度检测 </h1>
+
+	<hr size="1" width="100%" color="black" noshade="noshade" />
 	<iframe id = "hellocgi" src="cgi-bin/hello.cgi" width="0" height="0"></iframe>
+	
 	<!--#exec cgi="cgiProgram.cgi"-->
 
     <div id="main2" style="height:600px" align="left"></div>
@@ -39,7 +44,7 @@
                 var option2 = {
                     tooltip : {formatter: "{a} <br/>{b} : {c}%"},
                     series : [{
-                            name:'燃烧值(kcal)',
+                            name:'物联网温度',
                             type:'gauge',
                             detail : {formatter:'{value}摄氏度'},
                             data:[{value: 0, name: ''}]
@@ -64,6 +69,6 @@
                 }
 				 );
     </script>
-
+	<hr size="1" width="100%" color="black" noshade="noshade" />
 </body>
 </html>
